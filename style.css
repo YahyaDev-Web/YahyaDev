@@ -1,213 +1,252 @@
-/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 * {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    scroll-behavior: smooth;
-  }
-  
-  /* ------------------------- */
-  /* HEADER STYLES */
-  /* ------------------------- */
-  header {
-    background-color: #EFDCCF;
-    width: 100%;
-    position: fixed;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 200px;
-    z-index: 10;
-  }
-  
-  .logo {
-    text-decoration: none;
-    color: #2D2D2D;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 1.8em;
-  }
-  
-  .navigation a {
-    color: #2D2D2D;
-    text-decoration: none;
-    font-size: 1.1em;
-    font-weight: 500;
-    padding-left: 30px;
-  }
-  
-  .navigation a:hover {
-    color: #8F7F75;
-  }
-  
-  /* ------------------------- */
-  /* MAIN HERO SECTION STYLES */
-  /* ------------------------- */
-  .main {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 0 10%;
-    background: url('images/backroundyahya.png') no-repeat right center;
-    background-size: contain;
-    background-attachment: fixed;
-    background-color: #2D2D2D;
-    color: #fff;
-    animation: fadeIn 2s ease-out;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  
-  .main-text {
-    max-width: 40%;
-  }
-  
-  .main h2 {
-    font-size: 1.4em;
-    font-weight: 500;
-  }
-  
-  .main h2 span {
-    display: inline-block;
-    margin-top: 10px;
-    color: #333333;
-    font-size: 3em;
-    font-weight: 600;
-  }
-  
-  .main h3 {
-    font-size: 2em;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-top: 10px;
-    margin-bottom: 30px;
-  }
-  
-  .main-btn {
-    color: #fff;
-    background-color: #8F7F75;
-    text-decoration: none;
-    font-size: 1.1em;
-    font-weight: 600;
-    display: inline-block;
-    padding: 0.9375em 2.1875em;
-    letter-spacing: 1px;
-    border-radius: 15px;
-    margin-bottom: 40px;
-    transition: 0.7s ease;
-  }
-  
-  .main-btn:hover {
-    background-color: #EFDCCF;
-    transform: scale(1.1);
-  }
-  
-  .social-icons {
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
-  }
-  
-  .social-icons a {
-    color: #fff;
-    font-size: 2em;
-    transition: color 0.3s ease;
-  }
-  
-  .social-icons a:hover {
-    color: #8F7F75;
-  }
-  
-  /* ------------------------- */
-  /* PROJECT CARD STYLES */
-  /* ------------------------- */
-  .projects {
-    padding: 100px 200px;
-  }
-  
-  .section-title {
-    font-size: 2.5em;
-    font-weight: 700;
-    color: #58A6FF;
-    margin-bottom: 20px;
-    animation: fadeIn 2s ease-out;
-  }
-  
-  .project-card {
-    background-color: #161B22;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
-    max-width: 600px;
-    margin: auto;
-    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), box-shadow 0.3s ease;
-  }
-  
-  .project-card:hover {
-    transform: perspective(1000px) rotateY(15deg) scale(1.1);
-    box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.2);
-  }
-  
-  .project-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .project-logo {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .project-card h3 {
-    font-size: 1.5em;
-    color: #58A6FF;
-  }
-  
-  .project-card p {
-    font-size: 1em;
-    margin-bottom: 10px;
-  }
-  
-  .view-github {
-    background-color: #2EA043;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-  }
-  
-  .view-github:hover {
-    background-color: #238636;
-    transform: scale(1.1);
-    box-shadow: 0 0 8px #2EA043;
-  }
-  
-  /* GitHub Embed Container */
-  .embed-container {
-    width: 100%;
-    height: 0;
-    overflow: hidden;
-    transition: height 0.5s ease, opacity 0.5s ease;
-    opacity: 0;
-  }
-  
-  .embed-container.active {
-    height: 500px;
-    opacity: 1;
-  }
-  
-  .embed-container iframe {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    border: none;
-  }
-  
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+/* HEADER */
+header {
+  background-color: #EFDCCF;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 200px;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+}
+
+header:hover {
+  background-color: #d3b79b;
+}
+
+.logo {
+  text-decoration: none;
+  color: #2D2D2D;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.8em;
+}
+
+.navigation a {
+  color: #2D2D2D;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: 500;
+  padding-left: 30px;
+  transition: color 0.3s ease;
+}
+
+.navigation a:hover {
+  color: #8F7F75;
+}
+
+/* MAIN HERO SECTION */
+.main {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 10%;
+  background: url('images/backroundyahya.png') no-repeat right center;
+  background-size: contain;
+  background-attachment: fixed;
+  background-color: #2D2D2D;
+  color: #fff;
+  transition: transform 0.8s ease;
+}
+
+.main:hover {
+  transform: scale(1.02);
+}
+
+.main-text {
+  max-width: 40%;
+}
+
+.main h2 {
+  font-size: 1.4em;
+  font-weight: 500;
+}
+
+.main h2 span {
+  display: inline-block;
+  margin-top: 10px;
+  color: #EFDCCF;
+  font-size: 3em;
+  font-weight: 600;
+}
+
+.main h3 {
+  font-size: 2em;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.main-btn {
+  color: #fff;
+  background-color: #8F7F75;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: 600;
+  display: inline-block;
+  padding: 0.9375em 2.1875em;
+  letter-spacing: 1px;
+  border-radius: 15px;
+  margin-bottom: 40px;
+  transition: 0.7s ease;
+}
+
+.main-btn:hover {
+  background-color: #EFDCCF;
+  transform: scale(1.1);
+}
+
+.social-icons {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.social-icons a {
+  color: #fff;
+  font-size: 2em;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #8F7F75;
+}
+
+/* ABOUT ME */
+.about-me {
+  background-color: #EFDCCF;
+  text-align: center;
+  color: #2D2D2D;
+  padding: 100px 200px;
+}
+
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-me h2 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.about-me p {
+  font-size: 1.2em;
+  line-height: 1.6;
+}
+
+/* PROJECTS SECTION */
+.projects {
+  text-align: center;
+  padding: 100px 200px;
+  background-color: #161b22;
+  color: white;
+}
+
+.projects h2 {
+  font-size: 3em;
+  margin-bottom: 20px;
+  color: #58a6ff;
+  animation: fadeIn 2s ease-in-out;
+}
+
+/* GITHUB REPO CARD */
+.repo-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #161b22;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto;
+  transition: transform 0.5s ease;
+}
+
+.repo-card:hover {
+  transform: translateY(-10px);
+}
+
+.github-icon {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.repo-info {
+  text-align: left;
+  flex: 1;
+  margin-left: 15px;
+}
+
+.repo-info h3 {
+  margin: 0;
+  font-size: 22px;
+  color: #58a6ff;
+}
+
+.repo-info p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #c9d1d9;
+}
+
+.repo-info a {
+  display: inline-block;
+  background: #238636;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.repo-info a:hover {
+  background: #2ea043;
+}
+
+.repo-frame {
+  width: 90%;
+  height: 500px;
+  border: none;
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+/* Footer */
+footer {
+  background-color: #2D2D2D;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  transition: background-color 0.5s ease;
+}
+
+footer:hover {
+  background-color: #8F7F75;
+}
+
+footer p {
+  margin: 0;
+  font-size: 1em;
+}
