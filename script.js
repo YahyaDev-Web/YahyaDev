@@ -240,3 +240,51 @@ document.addEventListener('DOMContentLoaded', function() {
     // Start typewriter effect
     typeWriter();
 });
+// Form submission handler
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const formMessage = document.querySelector('.form-message');
+    const originalText = submitBtn.querySelector('.btn-text').textContent;
+  
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.querySelector('.btn-text').textContent = 
+      currentLanguage === 'en' ? 'Sending...' : 'جاري الإرسال...';
+  
+    try {
+      const response = await fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this),
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+  
+      if (response.ok) {
+        formMessage.style.display = 'block';
+        formMessage.style.backgroundColor = '#d4edda';
+        formMessage.style.color = '#155724';
+        formMessage.textContent = 
+          currentLanguage === 'en' 
+          ? 'Message sent successfully!' 
+          : 'تم إرسال الرسالة بنجاح!';
+        this.reset();
+      } else {
+        throw new Error('Failed to send');
+      }
+    } catch (error) {
+      formMessage.style.display = 'block';
+      formMessage.style.backgroundColor = '#f8d7da';
+      formMessage.style.color = '#721c24';
+      formMessage.textContent = 
+        currentLanguage === 'en' 
+        ? 'Error sending message. Please try again.' 
+        : 'خطأ في إرسال الرسالة. يرجى المحاولة مرة أخرى.';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.querySelector('.btn-text').textContent = originalText;
+      setTimeout(() => formMessage.style.display = 'none', 5000);
+    }
+  });
