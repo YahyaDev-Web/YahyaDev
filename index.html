@@ -109,7 +109,7 @@
                         <a href="https://github.com/YahyaDev-Web/Python-Projects" target="_blank" class="project-link">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="#" class="project-link">
+                        <a href="" class="project-link">
                             <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
@@ -129,7 +129,7 @@
                 <div class="project-image">
                     <img src="images/webdev.png" alt="Web Projects">
                     <div class="project-links">
-                        <a href="#" class="project-link">
+                        <a href="https://github.com/YahyaDev-Web/YahyaDev" target="_blank" class="project-link">
                             <i class="fab fa-github"></i>
                         </a>
                         <a href="#" class="project-link">
@@ -194,28 +194,25 @@
                     <span data-en="Morocco" data-ar="المغرب"></span>
                 </div>
             </div>
-            <form class="contact-form" id="contactForm" 
-            action="https://formspree.io/f/mjkyazdl" 
-            method="POST">
-        <!-- Keep all your existing form fields the same -->
-        <div class="form-group">
-          <input type="text" id="name" name="name" required 
-                 data-en-placeholder="Your Name" data-ar-placeholder="اسمك">
-        </div>
-        <div class="form-group">
-          <input type="email" id="email" name="email" required 
-                 data-en-placeholder="Your Email" data-ar-placeholder="بريدك الإلكتروني">
-        </div>
-        <div class="form-group">
-          <textarea id="message" name="message" required 
-                    data-en-placeholder="Your Message" data-ar-placeholder="رسالتك"></textarea>
-        </div>
-        <button type="submit" class="submit-btn" data-en="Send Message" data-ar="إرسال الرسالة">
-          <span class="btn-text"></span>
-          <i class="fas fa-paper-plane"></i>
-        </button>
-        <div class="form-message"></div>
-      </form>
+            <form class="contact-form" id="contactForm" action="https://formspree.io/f/mjkyazdl" method="POST">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" required 
+                           data-en-placeholder="Your Name" data-ar-placeholder="اسمك">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="_replyto" required 
+                           data-en-placeholder="Your Email" data-ar-placeholder="بريدك الإلكتروني">
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" required 
+                             data-en-placeholder="Your Message" data-ar-placeholder="رسالتك"></textarea>
+                </div>
+                <input type="hidden" name="_subject" value="New message from portfolio">
+                <button type="submit" class="submit-btn" data-en="Send Message" data-ar="إرسال الرسالة">
+                    <span class="btn-text"></span>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+                <div class="form-message"></div>
             </form>
         </div>
     </section>
