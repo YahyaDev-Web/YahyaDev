@@ -1,73 +1,244 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
-    <link rel="stylesheet" href="style.css" />
-    <title>YahyaDev</title>
+    <link rel="icon" href="images/backroundyahya.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yahya Rchika | Moroccan Developer</title>
+    <link rel="icon" href="images/moroccoflag.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <header>
-        <a href="#" class="logo">Yahya Rchika</a>
-        <nav class="navigation">
-            <a href="#about">About Me</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
+<body class="light-theme" data-lang="en">
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ar">AR</button>
+    </div>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <i class="fas fa-sun"></i>
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+        </label>
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- Header -->
+    <header class="glass-header">
+        <div class="logo-container">
+            <div class="profile-badge">
+                <img src="images/backroundyahya.png" alt="Yahya" class="profile-logo pulse">
+                <img src="images/moroccoflag.png" alt="Morocco" class="flag-icon floating">
+            </div>
+            <h1 class="logo-text" data-en="Yahya Rchika" data-ar="يحيى ارشيق"></h1>
+        </div>
+        <nav class="main-nav">
+            <a href="#about" class="nav-link" data-en="About" data-ar="عني"></a>
+            <a href="#projects" class="nav-link" data-en="Projects" data-ar="مشاريعي"></a>
+            <a href="#contact" class="nav-link" data-en="Contact" data-ar="اتصل"></a>
         </nav>
     </header>
 
-    <!-- Main Hero Section -->
-    <section class="main">
-        <div class="main-text">
-            <h2>
-                Hello, I'm Yahya<br />
-                <span>Software Developer</span>
-            </h2>
-            <h3>A person with relentless goals, always striving for more.</h3>
-            <a href="#projects" class="main-btn">View My Projects</a>
-
-            <!-- Social Icons under the button -->
-            <div class="social-icons">
-                <a href="#"><i class="fa-brands fa-github"></i></a>
-                <a href="#"><i class="fa-brands fa-discord"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Me Section -->
-    <section class="about-me" id="about">
-        <div class="about-content">
-            <h2>About Me</h2>
-            <p>
-                Hey, my name is Yahya Rchika. I'm 15 years old from Morocco, and my goal is to become a software developer. 
-                I have solid experience in Python and have built several projects—you can check them out below! 
-                Soon, I’ll be diving into web development and learning multiple languages. I love football, staying productive, and hitting the gym.
-            </p>
-        </div>
-    </section>
-
-    <!-- Projects Section with GitHub Repo Embed -->
-    <section class="projects" id="projects">
-        <h2>My Projects</h2>
-        
-        <div class="repo-card">
-            <a href="https://github.com/YahyaDev-Web/Python-Projects" target="repo-frame">
-                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" class="github-icon">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2 class="animate__animated animate__fadeInDown" data-en="Moroccan Software Developer" data-ar="مطور برمجيات مغربي"></h2>
+            <p class="typewriter"></p>
+            <a href="#projects" class="cta-btn shine" data-en="View My Work" data-ar="شاهد أعمالي">
+                <span class="btn-text"></span>
+                <span class="btn-icon"><i class="fas fa-arrow-right"></i></span>
             </a>
-            <div class="repo-info">
-                <h3>Python Projects</h3>
-                <p>Here are some of my best Python projects—but stay tuned, even better ones are on the way! 🚀</p>
-                <a href="https://github.com/YahyaDev-Web/Python-Projects" target="repo-frame">View on GitHub</a>
+        </div>
+        <div class="hero-image">
+            <div class="image-wrapper">
+                <img src="images/backroundyahya.png" alt="Yahya" class="profile-main floating">
+                <div class="circle-animation"></div>
             </div>
         </div>
-
-        <iframe name="repo-frame" class="repo-frame"></iframe>
     </section>
 
-    <!-- Footer Section -->
-    <footer>
-        <p>&copy; 2025 Yahya Rchika. All rights reserved.</p>
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="section-header">
+            <h3 data-en="About Me" data-ar="عني"></h3>
+            <div class="underline"></div>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <p data-en="15-year-old Moroccan developer passionate about Python and web technologies. Self-taught programmer with experience in building automation tools and web applications. I combine technical skills with creative problem-solving to build efficient solutions." 
+                   data-ar="مطور مغربي عمره 15 سنة، شغوف بلغة بايثون وتقنيات الويب. مبرمج عصامي لديه خبرة في بناء أدوات الأتمتة وتطبيقات الويب. أجمع بين المهارات التقنية والتفكير الإبداعي لبناء حلول فعالة."></p>
+                <div class="about-details">
+                    <div class="detail-item">
+                        <i class="fas fa-birthday-cake"></i>
+                        <span data-en="Age: 15" data-ar="العمر: 15"></span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span data-en="From: Morocco" data-ar="من: المغرب"></span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-code"></i>
+                        <span data-en="Specialty: Python" data-ar="تخصص: بايثون"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="skills-section">
+                <h4 data-en="My Skills" data-ar="مهاراتي"></h4>
+                <div class="skills-container">
+                    <!-- Skill bars will be generated by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="section-header">
+            <h3 data-en="My Projects" data-ar="مشاريعي"></h3>
+            <div class="underline"></div>
+        </div>
+        <div class="projects-container">
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="images/python.png" alt="Python Projects">
+                    <div class="project-links">
+                        <a href="https://github.com/YahyaDev-Web/Python-Projects" target="_blank" class="project-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="project-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h4 data-en="Python Projects" data-ar="مشاريع بايثون"></h4>
+                    <p data-en="My Python projects that i made." 
+                       data-ar="مجموعة مشاريع بايثون"></p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Automation</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="images/webdev.png" alt="Web Projects">
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="project-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h4 data-en="Web Portfolio" data-ar="موقع شخصي"></h4>
+                    <p data-en="Responsive portfolio website showcasing my projects and skills." 
+                       data-ar="موقع شخصي يعرض مشاريعي ومهاراتي."></p>
+                    <div class="project-tech">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="images/comingsoon.png" alt="Coming Soon">
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fas fa-hourglass-half"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h4 data-en="More Coming Soon" data-ar="المزيد قريباً"></h4>
+                    <p data-en="I'm constantly working on new projects. Stay tuned for updates!" 
+                       data-ar="أعمل باستمرار على مشاريع جديدة. ترقبوا التحديثات!"></p>
+                    <div class="project-tech">
+                        <span data-en="In Progress" data-ar="قيد التطوير"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="section-header">
+            <h3 data-en="Contact Me" data-ar="اتصل بي"></h3>
+            <div class="underline"></div>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="info-card">
+                    <i class="fas fa-envelope"></i>
+                    <h4 data-en="Email" data-ar="البريد الإلكتروني"></h4>
+                    <a href="mailto:yahall6309@gmail.com">yahall6309@gmail.com</a>
+                </div>
+                <div class="info-card">
+                    <i class="fab fa-github"></i>
+                    <h4 data-en="GitHub" data-ar="جيت هاب"></h4>
+                    <a href="https://github.com/YahyaDev-Web" target="_blank">YahyaDev</a>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h4 data-en="Location" data-ar="الموقع"></h4>
+                    <span data-en="Morocco" data-ar="المغرب"></span>
+                </div>
+            </div>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" required 
+                           data-en-placeholder="Your Name" data-ar-placeholder="اسمك">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" required 
+                           data-en-placeholder="Your Email" data-ar-placeholder="بريدك الإلكتروني">
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" required 
+                              data-en-placeholder="Your Message" data-ar-placeholder="رسالتك"></textarea>
+                </div>
+                <button type="submit" class="submit-btn" data-en="Send Message" data-ar="إرسال الرسالة">
+                    <span class="btn-text"></span>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+                <div class="form-message"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="images/backroundyahya.png" alt="Yahya" class="footer-profile">
+                <h3 data-en="Yahya Rchika" data-ar="يحيى ارشيق"></h3>
+            </div>
+            <div class="footer-links">
+                <a href="#about" data-en="About" data-ar="عني"></a>
+                <a href="#projects" data-en="Projects" data-ar="مشاريعي"></a>
+                <a href="#contact" data-en="Contact" data-ar="اتصل"></a>
+            </div>
+            <div class="footer-social">
+                <a href="https://github.com/YahyaDev" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="mailto:yahall6309@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="year"></span> <span data-en="Yahya Rchika. All rights reserved." 
+               data-ar="يحيى ارشيق. جميع الحقوق محفوظة."></span></p>
+        </div>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
