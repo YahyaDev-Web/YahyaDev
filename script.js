@@ -1,290 +1,626 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Set current year in footer
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Language Switching
-    const langButtons = document.querySelectorAll('.lang-btn');
-    const langElements = document.querySelectorAll('[data-en], [data-ar]');
-    const placeholders = document.querySelectorAll('[data-en-placeholder], [data-ar-placeholder]');
+    // Preloader
+    const preloader = document.querySelector('.preloader');
     
-    // Typewriter variables
-    let typewriterTimeout;
-    let currentPhraseIndex = 0;
-    let currentCharIndex = 0;
-    let isDeleting = false;
-    let currentLanguage = localStorage.getItem('language') || 'en';
-    // Modified updateLanguage function
-    function updateLanguage(lang) {
-        document.body.setAttribute('data-lang', lang);
-        document.body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
-        currentLanguage = lang;
-
-        // Force update placeholders with !important styles
-        document.querySelectorAll('[data-en-placeholder], [data-ar-placeholder]').forEach(el => {
-            el.placeholder = el.getAttribute(`data-${lang}-placeholder`);
-            el.style.backgroundColor = 'white !important';
-            el.style.color = '#333 !important';
-        });
-
-        // Update other elements
-        langElements.forEach(el => {
-            if (!(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA')) {
-                el.textContent = el.getAttribute(`data-${lang}`);
-            }
-        });
-
-        // Update button text spans
-        document.querySelectorAll('.btn-text').forEach(btn => {
-            btn.textContent = btn.parentElement.getAttribute(`data-${lang}`);
-        });
-        
-        // Reset typewriter with new language
-        resetTypewriter();
-    }
-    
-    function resetTypewriter() {
-        clearTimeout(typewriterTimeout);
-        const typewriter = document.querySelector('.typewriter');
-        typewriter.textContent = '';
-        currentPhraseIndex = 0;
-        currentCharIndex = 0;
-        isDeleting = false;
-        typeWriter();
-    }
-    
-    function typeWriter() {
-        const typewriter = document.querySelector('.typewriter');
-        const phrases = {
-            en: ["Python Developer", "Web Enthusiast", "Tech Explorer"],
-            ar: ["مطور بايثون", "مهتم بتطوير الويب", "مستكشف تقني"]
-        };
-        
-        const currentPhrases = phrases[currentLanguage];
-        const currentPhrase = currentPhrases[currentPhraseIndex];
-        
-        if (isDeleting) {
-            typewriter.textContent = currentPhrase.substring(0, currentCharIndex - 1);
-            currentCharIndex--;
-        } else {
-            typewriter.textContent = currentPhrase.substring(0, currentCharIndex + 1);
-            currentCharIndex++;
-        }
-
-        let typingSpeed = 100;
-        
-        if (isDeleting) {
-            typingSpeed = 50;
-        }
-
-        if (!isDeleting && currentCharIndex === currentPhrase.length) {
-            isDeleting = true;
-            typingSpeed = 1500;
-        } else if (isDeleting && currentCharIndex === 0) {
-            isDeleting = false;
-            currentPhraseIndex = (currentPhraseIndex + 1) % currentPhrases.length;
-            typingSpeed = 500;
-        }
-
-        typewriterTimeout = setTimeout(typeWriter, typingSpeed);
-    }
-    
-    langButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const lang = this.dataset.lang;
-            localStorage.setItem('language', lang);
-            
-            langButtons.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            updateLanguage(lang);
-        });
+    // Hide preloader when page is loaded
+    window.addEventListener('load', function() {
+        preloader.classList.add('loaded');
     });
 
-    // Initialize language
-    const savedLang = localStorage.getItem('language') || 'en';
-    document.querySelector(`.lang-btn[data-lang="${savedLang}"]`).classList.add('active');
-    updateLanguage(savedLang);
-
-    // Theme Switching
+    // Theme Toggle
     const themeToggle = document.querySelector('.theme-toggle input');
-    themeToggle.addEventListener('change', function() {
-        document.body.classList.toggle('dark-theme');
-        localStorage.setItem('theme', this.checked ? 'dark' : 'light');
-    });
-
-    // Initialize theme
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-theme');
+    const body = document.body;
+    
+    // Check for saved theme preference or use preferred color scheme
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        body.classList.add('dark-theme');
         themeToggle.checked = true;
     }
-
-    // Generate Skill Bars
-    const skills = [
-        { name: { en: "Python", ar: "بايثون" }, level: 95 },
-        { name: { en: "HTML", ar: "HTML" }, level: 40 },
-        { name: { en: "CSS", ar: "CSS" }, level: 30 },
-        { name: { en: "JavaScript", ar: "جافاسكريبت" }, level: 20 },
-        { name: { en: "Problem Solving", ar: "حل المشكلات" }, level: 75 }
-    ];
-
-    function updateSkills() {
-        const skillsContainer = document.querySelector('.skills-container');
-        skillsContainer.innerHTML = '';
-        
-        skills.forEach(skill => {
-            const skillElement = document.createElement('div');
-            skillElement.className = 'skill-item';
-            
-            skillElement.innerHTML = `
-                <div class="skill-info">
-                    <span class="skill-name">${skill.name[currentLanguage]}</span>
-                    <span class="skill-percent">${skill.level}%</span>
-                </div>
-                <div class="skill-bar">
-                    <div class="skill-progress" style="width: ${skill.level}%"></div>
-                </div>
-            `;
-            skillsContainer.appendChild(skillElement);
-        });
-    }
     
-    // Initial skills setup
-    updateSkills();
-
-    // Form Submission
-    const contactForm = document.getElementById('contactForm');
-    const formMessage = document.querySelector('.form-message');
-    
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.querySelector('.btn-text').textContent;
-        
-        // Show loading state
-        submitBtn.disabled = true;
-        submitBtn.querySelector('.btn-text').textContent = 
-            currentLanguage === 'en' ? 'Sending...' : 'جاري الإرسال...';
-        
-        // Simulate form submission
-        setTimeout(() => {
-            formMessage.style.display = 'block';
-            formMessage.style.backgroundColor = '#d4edda';
-            formMessage.style.color = '#155724';
-            formMessage.textContent = 
-                currentLanguage === 'en' 
-                ? 'Message sent successfully!' 
-                : 'تم إرسال الرسالة بنجاح!';
-            
-            // Reset form
-            contactForm.reset();
-            submitBtn.disabled = false;
-            submitBtn.querySelector('.btn-text').textContent = originalText;
-            
-            // Hide message after 5 seconds
-            setTimeout(() => {
-                formMessage.style.display = 'none';
-            }, 5000);
-        }, 1500);
+    themeToggle.addEventListener('change', function() {
+        body.classList.toggle('dark-theme');
+        localStorage.setItem('theme', body.classList.contains('dark-theme') ? 'dark' : 'light');
     });
+
+    // Language Toggle
+    const langButtons = document.querySelectorAll('.lang-btn');
+    const langElements = document.querySelectorAll('[data-en], [data-ar]');
+    
+    langButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const lang = this.getAttribute('data-lang');
+            
+            // Update active button
+            langButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Update HTML lang attribute and dir for RTL
+            document.documentElement.setAttribute('lang', lang);
+            document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            
+            // Update all elements with translations
+            langElements.forEach(el => {
+                if (el.hasAttribute(`data-${lang}`)) {
+                    const text = el.getAttribute(`data-${lang}`);
+                    
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.setAttribute('placeholder', text);
+                    } else {
+                        el.textContent = text;
+                    }
+                }
+            });
+            
+            // Save language preference
+            localStorage.setItem('language', lang);
+        });
+    });
+    
+    // Check for saved language preference
+    const savedLang = localStorage.getItem('language');
+    if (savedLang) {
+        document.querySelector(`.lang-btn[data-lang="${savedLang}"]`).click();
+    }
 
     // Mobile Menu Toggle
-    const menuToggle = document.createElement('div');
-    menuToggle.className = 'mobile-menu-toggle';
-    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-    document.querySelector('header').appendChild(menuToggle);
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
     
-    menuToggle.addEventListener('click', function() {
-        document.querySelector('.main-nav').classList.toggle('active');
-        this.innerHTML = document.querySelector('.main-nav').classList.contains('active') 
-            ? '<i class="fas fa-times"></i>' 
-            : '<i class="fas fa-bars"></i>';
+    mobileMenuToggle.addEventListener('click', function() {
+        mainNav.classList.toggle('active');
+        this.querySelector('i').classList.toggle('fa-times');
+        this.querySelector('i').classList.toggle('fa-bars');
     });
 
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth <= 768) {
-                document.querySelector('.main-nav').classList.remove('active');
-                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-        });
-    });
-
-    // Animate elements on scroll
-    const animateOnScroll = () => {
-        const elements = document.querySelectorAll('.section, .project-card, .info-card');
-        
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const screenPosition = window.innerHeight / 1.3;
+    // Smooth Scrolling for Anchor Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
             
-            if (elementPosition < screenPosition) {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                // Close mobile menu if open
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    mobileMenuToggle.querySelector('i').classList.remove('fa-times');
+                    mobileMenuToggle.querySelector('i').classList.add('fa-bars');
+                }
+                
+                // Scroll to target
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
             }
         });
-    };
-
-    // Set initial state for animation
-    document.querySelectorAll('.section, .project-card, .info-card').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'all 0.6s ease';
     });
 
-    window.addEventListener('scroll', animateOnScroll);
-    animateOnScroll(); // Run once on load
-    
-    // Start typewriter effect
-    typeWriter();
-});
-// Form submission handler
-document.getElementById('contactForm').addEventListener('submit', async function(e) {
+
+    // Contact Form Submission - Open Gmail Compose Window
+document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const formMessage = document.querySelector('.form-message');
-    const originalText = submitBtn.querySelector('.btn-text').textContent;
+    // Get form values
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    
+    // Validate form
+    if (!name || !email || !message) {
+        showToast('Please fill all fields', 'error');
+        return;
+    }
+    
+    // Create Gmail compose URL
+    const subject = `Message from ${name}`;
+    const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+    
+    const gmailUrl = `https://mail.google.com/mail/u/0/?view=cm&fs=1&to=yahall6309@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Open Gmail in new tab
+    window.open(gmailUrl, '_blank');
+    
+    // Show success message
+    showToast('Opening Gmail compose window...', 'success');
+    
+    // Reset form
+    this.reset();
+});
 
-    // Show loading state
-    submitBtn.disabled = true;
-    submitBtn.querySelector('.btn-text').textContent = 
-        currentLanguage === 'en' ? 'Sending...' : 'جاري الإرسال...';
+// Helper function to show toast notifications
+function showToast(message, type) {
+    const toastContainer = document.querySelector('.toast-container') || createToastContainer();
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    
+    toast.innerHTML = `
+        <div class="toast-icon">
+            <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        </div>
+        <div class="toast-message">${message}</div>
+        <div class="toast-close">
+            <i class="fas fa-times"></i>
+        </div>
+    `;
+    
+    toastContainer.appendChild(toast);
+    
+    // Show toast
+    setTimeout(() => toast.classList.add('active'), 100);
+    
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+        toast.classList.remove('active');
+        setTimeout(() => toast.remove(), 300);
+    }, 5000);
+    
+    // Close button
+    toast.querySelector('.toast-close').addEventListener('click', () => {
+        toast.classList.remove('active');
+        setTimeout(() => toast.remove(), 300);
+    });
+}
 
-    try {
-        const response = await fetch(this.action, {
-            method: 'POST',
-            body: new FormData(this),
-            headers: {
-                'Accept': 'application/json'
+function createToastContainer() {
+    const container = document.createElement('div');
+    container.className = 'toast-container';
+    document.body.appendChild(container);
+    return container;
+}
+    // Header Scroll Effect
+    const header = document.querySelector('.glass-header');
+    
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+
+    // Back to Top Button
+    const backToTopButton = document.querySelector('.back-to-top');
+    
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+            backToTopButton.classList.add('visible');
+        } else {
+            backToTopButton.classList.remove('visible');
+        }
+    });
+    
+    backToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Active Section Detection
+    const sections = document.querySelectorAll('.section');
+    
+    function checkActiveSection() {
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionHeight = section.offsetHeight;
+            const scrollPosition = window.scrollY;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                section.classList.add('active');
+                
+                // Update active nav link
+                const sectionId = section.getAttribute('id');
+                if (sectionId) {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
             }
         });
-
-        if (response.ok) {
-            formMessage.style.display = 'block';
-            formMessage.style.backgroundColor = '#d4edda';
-            formMessage.style.color = '#155724';
-            formMessage.textContent = 
-                currentLanguage === 'en' 
-                ? 'Message sent successfully!' 
-                : 'تم إرسال الرسالة بنجاح!';
-            this.reset();
-        } else {
-            throw new Error('Form submission failed');
-        }
-    } catch (error) {
-        formMessage.style.display = 'block';
-        formMessage.style.backgroundColor = '#f8d7da';
-        formMessage.style.color = '#721c24';
-        formMessage.textContent = 
-            currentLanguage === 'en' 
-            ? 'Error sending message. Please try again.' 
-            : 'خطأ في إرسال الرسالة. يرجى المحاولة مرة أخرى.';
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.querySelector('.btn-text').textContent = originalText;
-        setTimeout(() => formMessage.style.display = 'none', 5000);
     }
+    
+    window.addEventListener('scroll', checkActiveSection);
+    checkActiveSection(); // Run once on load
+
+    // Typewriter Effect
+    const typewriterElement = document.querySelector('.typewriter');
+    const cursorElement = document.querySelector('.typewriter-cursor');
+    
+    if (typewriterElement && cursorElement) {
+        const texts = [
+            "Python Developer",
+            "Web Enthusiast",
+            "Automation Expert",
+            "Problem Solver"
+        ];
+        
+        const arTexts = [
+            "مطور بايثون",
+            "هاوي ويب",
+            "خبير أتمتة",
+            "حلال مشاكل"
+        ];
+        
+        let currentLanguage = document.documentElement.getAttribute('lang');
+        let currentTextIndex = 0;
+        let isDeleting = false;
+        let currentText = '';
+        let typingSpeed = 100;
+        
+        function typeWriter() {
+            const activeTexts = currentLanguage === 'ar' ? arTexts : texts;
+            const fullText = activeTexts[currentTextIndex];
+            
+            if (isDeleting) {
+                currentText = fullText.substring(0, currentText.length - 1);
+                typingSpeed = 50;
+            } else {
+                currentText = fullText.substring(0, currentText.length + 1);
+                typingSpeed = 100;
+            }
+            
+            typewriterElement.textContent = currentText;
+            
+            if (!isDeleting && currentText === fullText) {
+                typingSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && currentText === '') {
+                isDeleting = false;
+                currentTextIndex = (currentTextIndex + 1) % activeTexts.length;
+                typingSpeed = 500;
+            }
+            
+            setTimeout(typeWriter, typingSpeed);
+        }
+        
+        // Start typewriter effect
+        setTimeout(typeWriter, 1000);
+        
+        // Update when language changes
+        document.addEventListener('languageChange', function() {
+            currentLanguage = document.documentElement.getAttribute('lang');
+        });
+    }
+
+    // Skill Bars Animation
+    const skillBars = document.querySelectorAll('.skill-progress');
+    
+    function animateSkillBars() {
+        skillBars.forEach(bar => {
+            const width = bar.getAttribute('data-width');
+            bar.style.width = `${width}%`;
+        });
+    }
+    
+    // Animate when section is active
+    const aboutSection = document.querySelector('#about');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateSkillBars();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    if (aboutSection) {
+        observer.observe(aboutSection);
+    }
+
+    // Contact Form Submission
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = contactForm.querySelector('.submit-btn');
+    const formFeedback = contactForm.querySelector('.form-feedback');
+    
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Validate form
+        const name = contactForm.querySelector('#name');
+        const email = contactForm.querySelector('#email');
+        const message = contactForm.querySelector('#message');
+        let isValid = true;
+        
+        // Reset error states
+        contactForm.querySelectorAll('.error-message').forEach(el => {
+            el.style.display = 'none';
+            el.textContent = '';
+        });
+        
+        // Validate name
+        if (!name.value.trim()) {
+            showError(name, 'Please enter your name');
+            isValid = false;
+        }
+        
+        // Validate email
+        if (!email.value.trim()) {
+            showError(email, 'Please enter your email');
+            isValid = false;
+        } else if (!isValidEmail(email.value)) {
+            showError(email, 'Please enter a valid email');
+            isValid = false;
+        }
+        
+        // Validate message
+        if (!message.value.trim()) {
+            showError(message, 'Please enter your message');
+            isValid = false;
+        }
+        
+        if (!isValid) return;
+        
+        // Show loading state
+        submitBtn.classList.add('loading');
+        submitBtn.disabled = true;
+        
+        try {
+            // Send form data using Formspree
+            const formData = new FormData(contactForm);
+            const response = await fetch('https://formspree.io/f/mjkyazdl', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                // Show success message
+                formFeedback.textContent = 'Message sent successfully!';
+                formFeedback.classList.remove('error');
+                formFeedback.classList.add('success');
+                formFeedback.style.display = 'block';
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Show toast notification
+                showToast('Message sent successfully!', 'success');
+            } else {
+                throw new Error('Failed to send message');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            
+            // Show error message
+            formFeedback.textContent = 'Failed to send message. Please try again later.';
+            formFeedback.classList.remove('success');
+            formFeedback.classList.add('error');
+            formFeedback.style.display = 'block';
+            
+            // Show toast notification
+            showToast('Failed to send message. Please try again later.', 'error');
+        } finally {
+            // Reset loading state
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+            
+            // Hide feedback after 5 seconds
+            setTimeout(() => {
+                formFeedback.style.display = 'none';
+            }, 5000);
+        }
+    });
+    
+    function showError(input, message) {
+        const errorElement = input.nextElementSibling.nextElementSibling;
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+        input.focus();
+    }
+    
+    function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+    
+    function showToast(message, type) {
+        const toastContainer = document.querySelector('.toast-container');
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        
+        toast.innerHTML = `
+            <div class="toast-icon">
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+            </div>
+            <div class="toast-message">${message}</div>
+            <div class="toast-close">
+                <i class="fas fa-times"></i>
+            </div>
+        `;
+        
+        toastContainer.appendChild(toast);
+        
+        // Show toast
+        setTimeout(() => {
+            toast.classList.add('active');
+        }, 100);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            toast.classList.remove('active');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }, 5000);
+        
+        // Close button
+        toast.querySelector('.toast-close').addEventListener('click', function() {
+            toast.classList.remove('active');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        });
+    }
+
+    // Particles.js Configuration
+    if (typeof particlesJS !== 'undefined') {
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#8F7F75"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#8F7F75",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    }
+
+    // GSAP Animations
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Animate sections on scroll
+        gsap.utils.toArray('.section').forEach(section => {
+            gsap.from(section, {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                }
+            });
+        });
+        
+        // Animate project cards
+        gsap.utils.toArray('.project-card').forEach((card, i) => {
+            gsap.from(card, {
+                opacity: 0,
+                y: 50,
+                duration: 0.5,
+                delay: i * 0.1,
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                }
+            });
+        });
+        
+        // Animate hero content
+        gsap.from('.hero-content', {
+            opacity: 0,
+            x: -50,
+            duration: 1,
+            delay: 0.5
+        });
+        
+        gsap.from('.hero-image', {
+            opacity: 0,
+            x: 50,
+            duration: 1,
+            delay: 0.5
+        });
+    }
+
+    // Update copyright year
+    document.getElementById('year').textContent = new Date().getFullYear();
 });
