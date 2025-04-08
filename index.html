@@ -41,42 +41,35 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Yahya Rchika</h1>
-                <h2 class="hero-subtitle">Python Developer</h2>
-                <p class="hero-description">From Morocco with a passion for coding and creating</p>
-                
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">My Projects</a>
-                    <a href="#contact" class="btn btn-secondary">Contact Me</a>
-                </div>
-            </div>
-            
-            <div class="hero-code">
-                <div class="code-header">
-                    <div class="code-dots">
-                        <span class="dot red"></span>
-                        <span class="dot yellow"></span>
-                        <span class="dot green"></span>
-                    </div>
-                    <div class="code-title">about_me.py</div>
-                </div>
-                <pre><code class="python"># Python Developer from Morocco
-def main():
-    name = "Yahya Rchika"
-    age = 15
-    skills = ["Python", "HTML", "CSS", "JavaScript"]
-    passion = "Building cool stuff with code"
-    
-    while True:
-        learn()
-        code()
-        create()</code></pre>
-            </div>
+    <section class="hero container">
+        <div class="hero-content">
+          <h1 class="hero-title">Python Developer</h1>
+          <h2 class="hero-subtitle">Crafting Code with Purpose</h2>
+          <p class="hero-description">I build scalable, elegant, and efficient solutions with Python. Let’s turn ideas into reality!</p>
+          <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">See My Work</a>
+            <a href="#contact" class="btn btn-secondary">Contact Me</a>
+          </div>
         </div>
-    </section>
+      
+        <div class="hero-code">
+          <div class="code-header">
+            <div class="code-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <span class="code-title">about_me.py</span>
+          </div>
+          <pre>
+      print("Hello, I'm Yahya!")
+      skills = ["Python", "HTML", "CSS", "Linux"]
+      for skill in skills:
+          print(f"I love {skill}")
+          </pre>
+        </div>
+      </section>
+      
 
     <!-- About Section -->
     <section class="section" id="about">
@@ -249,6 +242,9 @@ def main():
                         <i class="fas fa-map-marker-alt"></i>
                         <h3>Location</h3>
                         <p>Morocco</p>
+                        <a href="#" class="info-link">
+                            View Map <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
                 
