@@ -215,14 +215,21 @@ section {
 /* Hero Section */
 .hero {
   min-height: 100vh;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  padding-top: 5rem;
+  padding-top: 6rem;
+  gap: 3rem;
 }
 
 .hero-content {
-  max-width: 600px;
+  max-width: 100%;
 }
+
+.hero-code {
+  justify-self: end;
+}
+
 
 .hero-title {
   font-size: 3.5rem;
