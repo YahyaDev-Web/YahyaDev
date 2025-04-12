@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yahya Rchika</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Yahya Rchika - Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Add Tabler Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 </head>
-<body class="light-theme">
+<body>
     <!-- Loading Animation -->
     <div class="loader">
         <div class="loader-content">
@@ -18,286 +19,193 @@
 
     <!-- Header -->
     <header class="header">
-        <div class="container">
-            <div class="logo">
-                <span>YR</span>
-            </div>
-            
-            <nav class="nav">
+        <nav class="container">
+            <h2 class="logo animate-slide-left">YR</h2>
+            <div class="nav-links">
                 <a href="#about">About</a>
                 <a href="#skills">Skills</a>
                 <a href="#projects">Projects</a>
                 <a href="#contact">Contact</a>
-            </nav>
-            
-            <div class="theme-toggle">
-                <i class="fas fa-moon"></i>
             </div>
-            
-            <div class="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
+        </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero container">
-        <div class="hero-content">
-          <h1 class="hero-title">Python Developer</h1>
-          <h2 class="hero-subtitle">Crafting Code with Purpose</h2>
-          <p class="hero-description">I build scalable, elegant, and efficient solutions with Python. Let’s turn ideas into reality!</p>
-          <div class="hero-buttons">
-            <a href="#projects" class="btn btn-primary">See My Work</a>
-            <a href="#contact" class="btn btn-secondary">Contact Me</a>
-          </div>
-        </div>
-      
-        <div class="hero-code">
-          <div class="code-header">
-            <div class="code-dots">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-            </div>
-            <span class="code-title">about_me.py</span>
-          </div>
-          <pre>
-      print("Hello, I'm Yahya!")
-      skills = ["Python", "HTML", "CSS", "Linux"]
-      for skill in skills:
-          print(f"I love {skill}")
-          </pre>
-        </div>
-      </section>
-      
+    <main>
+        <!-- Hero Section -->
+        <section class="hero container animate-fade-in">
+            <h1 class="gradient-text">Python Developer</h1>
+            <p class="hero-description">
+                I build scalable, elegant, and efficient solutions with Python. Let's turn ideas into reality!
+            </p>
+        </section>
 
-    <!-- About Section -->
-    <section class="section" id="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Who I Am</h3>
-                    <p>I'm a 15-year-old self-taught developer from Morocco who loves turning ideas into reality through code. I specialize in Python but enjoy learning all aspects of development.</p>
-                    
-                    <div class="about-stats">
-                        <div class="stat">
-                            <div class="stat-number" data-count="3">3+</div>
-                            <div class="stat-label">Years Coding</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number" data-count="20">30+</div>
-                            <div class="stat-label">Projects</div>
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-content animate-slide-right">
+                        <h2>About Me</h2>
+                        <p>
+                            I'm a 15-year-old self-taught developer from Morocco who loves turning ideas into reality through code. 
+                            I specialize in Python but enjoy learning all aspects of development.
+                        </p>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number" data-count="3">0</div>
+                                <div class="stat-label">Years Coding</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" data-count="30">0</div>
+                                <div class="stat-label">Projects</div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="about-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Based in Morocco</span>
-                    </div>
-                </div>
-                
-                <div class="about-image">
-                    <div class="image-wrapper">
-                        <div class="tech-icons">
-                            <i class="fab fa-python"></i>
-                            <i class="fab fa-html5"></i>
-                            <i class="fab fa-css3-alt"></i>
-                            <i class="fab fa-js"></i>
+                    <div class="code-card animate-slide-left">
+                        <div class="code-header">
+                            <div class="code-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <span>hello.py</span>
                         </div>
+                        <pre><code>print("Hello, I'm Yahya!")
+skills = ["Python", "HTML", "CSS", "Linux"]
+for skill in skills:
+    print(f"I love {skill}")</code></pre>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Skills Section -->
-    <section class="section" id="skills">
-        <div class="container">
-            <h2 class="section-title">My Skills</h2>
-            
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-python"></i>
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="container">
+                <h2>Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-card" data-aos="fade-up">
+                        <i class="ti ti-brand-python"></i>
+                        <h3>Python</h3>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-level="75"></div>
+                        </div>
+                        <span>75%</span>
                     </div>
-                    <h3>Python</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-level="75"></div>
+                    <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
+                        <i class="ti ti-brand-html5"></i>
+                        <h3>HTML</h3>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-level="30"></div>
+                        </div>
+                        <span>30%</span>
                     </div>
-                    <span>75%</span>
-                </div>
-                
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-html5"></i>
+                    <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
+                        <i class="ti ti-brand-css3"></i>
+                        <h3>CSS</h3>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-level="20"></div>
+                        </div>
+                        <span>20%</span>
                     </div>
-                    <h3>HTML</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-level="30"></div>
+                    <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
+                        <i class="ti ti-brand-javascript"></i>
+                        <h3>JavaScript</h3>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-level="15"></div>
+                        </div>
+                        <span>15%</span>
                     </div>
-                    <span>30%</span>
-                </div>
-                
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-css3-alt"></i>
-                    </div>
-                    <h3>CSS</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-level="20"></div>
-                    </div>
-                    <span>20%</span>
-                </div>
-                
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-js"></i>
-                    </div>
-                    <h3>JavaScript</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-level="15"></div>
-                    </div>
-                    <span>15%</span>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Projects Section -->
-    <section class="section" id="projects">
-        <div class="container">
-            <h2 class="section-title">My Projects</h2>
-            
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Python Projects">
-                    </div>
-                    <div class="project-info">
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <div class="container">
+                <h2>Projects</h2>
+                <div class="projects-grid">
+                    <a href="https://github.com/YahyaDev-Web/Python-Projects" class="project-card" target="_blank">
                         <h3>Python Projects</h3>
-                        <p>A collection of Python scripts and applications I've built while learning.</p>
-                        <a href="https://github.com/YahyaDev-Web/Python-Projects" class="project-link" target="_blank">
-                            View on GitHub <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Portfolio Website">
-                    </div>
-                    <div class="project-info">
+                        <p>A collection of Python scripts and applications showcasing various programming concepts and practical solutions.</p>
+                        <div class="project-meta">
+                            <span class="language">
+                                <span class="lang-dot python"></span>
+                                Python
+                            </span>
+                            <span class="stars">
+                                <i class="ti ti-star"></i>
+                                12
+                            </span>
+                            <span class="forks">
+                                <i class="ti ti-git-fork"></i>
+                                5
+                            </span>
+                        </div>
+                    </a>
+                    <a href="https://github.com/YahyaDev-Web/YahyaDev" class="project-card" target="_blank">
                         <h3>Portfolio Website</h3>
-                        <p>This responsive portfolio built with HTML, CSS, and JavaScript.</p>
-                        <a href="https://github.com/YahyaDev-Web/YahyaDev" class="project-link">
-                            View Project <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Coming Soon">
-                    </div>
-                    <div class="project-info">
-                        <h3>More Coming Soon</h3>
-                        <p>I'm constantly working on new projects and learning new skills.</p>
-                        <a href="#" class="project-link">
-                            Stay Tuned <i class="fas fa-clock"></i>
-                        </a>
-                    </div>
+                        <p>Modern, responsive portfolio website built with modern web technologies, featuring smooth animations and clean design.</p>
+                        <div class="project-meta">
+                            <span class="language">
+                                <span class="lang-dot typescript"></span>
+                                TypeScript
+                            </span>
+                            <span class="stars">
+                                <i class="ti ti-star"></i>
+                                8
+                            </span>
+                            <span class="forks">
+                                <i class="ti ti-git-fork"></i>
+                                3
+                            </span>
+                        </div>
+                    </a>
+                    <a href="https://github.com/YahyaDev-Web/learning" class="project-card" target="_blank">
+                        <h3>Learning Projects</h3>
+                        <p>A repository of various learning projects and exercises, documenting my journey in software development.</p>
+                        <div class="project-meta">
+                            <span class="language">
+                                <span class="lang-dot javascript"></span>
+                                JavaScript
+                            </span>
+                            <span class="stars">
+                                <i class="ti ti-star"></i>
+                                5
+                            </span>
+                            <span class="forks">
+                                <i class="ti ti-git-fork"></i>
+                                2
+                            </span>
+                        </div>
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section class="section" id="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="info-card">
-                        <i class="fas fa-envelope"></i>
-                        <h3>Email</h3>
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h2>Get In Touch</h2>
+                <div class="contact-grid">
+                    <a href="mailto:yahall6309@gmail.com" class="contact-card">
+                        <i class="ti ti-mail"></i>
+                        <h3>Email Me</h3>
                         <p>yahall6309@gmail.com</p>
-                        <a href="mailto:yahall6309@gmail.com" class="info-link">
-                            Send Message <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                    
-                    <div class="info-card">
-                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://github.com/YahyaDev-Web" class="contact-card" target="_blank">
+                        <i class="ti ti-brand-github"></i>
                         <h3>GitHub</h3>
                         <p>YahyaDev-Web</p>
-                        <a href="https://github.com/YahyaDev-Web" class="info-link" target="_blank">
-                            Visit Profile <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                    
-                    <div class="info-card">
-                        <i class="fas fa-map-marker-alt"></i>
+                    </a>
+                    <div class="contact-card">
+                        <i class="ti ti-map-pin"></i>
                         <h3>Location</h3>
                         <p>Morocco</p>
-                        <a href="#" class="info-link">
-                            View Map <i class="fas fa-arrow-right"></i>
-                        </a>
                     </div>
                 </div>
-                
-                <form class="contact-form">
-                    <div class="form-group">
-                        <input type="text" id="name" required>
-                        <label for="name">Your Name</label>
-                    </div>
-                    
-                    <div class="form-group">
-                        <input type="email" id="email" required>
-                        <label for="email">Your Email</label>
-                    </div>
-                    
-                    <div class="form-group">
-                        <textarea id="message" required></textarea>
-                        <label for="message">Your Message</label>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">
-                        Send Message <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
             </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <span>YR</span>
-                </div>
-                
-                <div class="footer-links">
-                    <a href="#about">About</a>
-                    <a href="#skills">Skills</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#contact">Contact</a>
-                </div>
-                
-                <div class="footer-social">
-                    <a href="https://github.com/YahyaDev-Web" target="_blank">
-                        <i class="fab fa-github"></i>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; <span id="year"></span> Yahya Rchika. All rights reserved.</p>
-                <p>Made with <i class="fas fa-heart"></i> in Morocco</p>
-            </div>
-        </div>
-    </footer>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>
