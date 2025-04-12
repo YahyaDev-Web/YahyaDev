@@ -1,178 +1,98 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Loading animation
+// Loading Animation
+window.addEventListener('load', () => {
     const loader = document.querySelector('.loader');
-    
-    // Hide loader when page is loaded
-    window.addEventListener('load', function() {
-        setTimeout(function() {
-            loader.style.opacity = '0';
-            setTimeout(function() {
-                loader.style.display = 'none';
-            }, 500);
-        }, 1000);
-    });
+    setTimeout(() => {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 500);
+    }, 1000);
+});
 
-    // Theme toggle
-    const themeToggle = document.querySelector('.theme-toggle');
-    const body = document.body;
-    
-    themeToggle.addEventListener('click', function() {
-        body.classList.toggle('dark-theme');
-        
-        // Save theme preference
-        const isDark = body.classList.contains('dark-theme');
-        localStorage.setItem('dark-theme', isDark);
-        
-        // Update icon
-        if (isDark) {
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-        } else {
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+// Animate skill bars when they come into view
+const animateSkillBars = () => {
+    const skillBars = document.querySelectorAll('.skill-progress');
+    skillBars.forEach(bar => {
+        const level = bar.getAttribute('data-level');
+        bar.style.width = `${level}%`;
+    });
+};
+
+// Animate numbers
+const animateNumbers = () => {
+    const numbers = document.querySelectorAll('.stat-number');
+    numbers.forEach(number => {
+        const target = parseInt(number.getAttribute('data-count'));
+        const increment = target / 100;
+        let current = 0;
+
+        const updateNumber = () => {
+            if (current < target) {
+                current += increment;
+                number.textContent = Math.round(current) + '+';
+                requestAnimationFrame(updateNumber);
+            } else {
+                number.textContent = target + '+';
+            }
+        };
+
+        updateNumber();
+    });
+};
+
+// Intersection Observer for animations
+const observerCallback = (entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            if (entry.target.classList.contains('skill-progress')) {
+                animateSkillBars();
+            } else if (entry.target.classList.contains('stat-number')) {
+                animateNumbers();
+            }
+            observer.unobserve(entry.target);
         }
     });
-    
-    // Check for saved theme preference
-    if (localStorage.getItem('dark-theme') === 'true') {
-        body.classList.add('dark-theme');
-        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-    }
+};
 
-    // Mobile menu toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('.nav');
-    
-    menuToggle.addEventListener('click', function() {
-        nav.classList.toggle('active');
+const observer = new IntersectionObserver(observerCallback, {
+    threshold: 0.5
+});
+
+// Observe elements
+document.querySelectorAll('.skill-progress, .stat-number').forEach(el => {
+    observer.observe(el);
+});
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            const headerOffset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
     });
-    
-    // Close menu when clicking on a link
-    document.querySelectorAll('.nav a').forEach(link => {
-        link.addEventListener('click', function() {
-            nav.classList.remove('active');
-        });
-    });
+});
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
+// Header scroll effect
+const header = document.querySelector('.header');
+let lastScroll = 0;
 
-    // Animate elements when they come into view
-    const animateOnScroll = function() {
-        const elements = document.querySelectorAll('.animate');
-        
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const windowHeight = window.innerHeight;
-            
-            if (elementPosition < windowHeight - 100) {
-                element.classList.add('fade-in');
-            }
-        });
-    };
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
     
-    // Run animation check on scroll and initial load
-    window.addEventListener('scroll', animateOnScroll);
-    animateOnScroll();
-
-    // Animate skill bars
-    const animateSkillBars = function() {
-        const skillBars = document.querySelectorAll('.skill-progress');
-        
-        skillBars.forEach(bar => {
-            const level = bar.getAttribute('data-level');
-            bar.style.width = level + '%';
-        });
-    };
-    
-    // Animate when skills section is in view
-    const skillsObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateSkillBars();
-                skillsObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-    
-    const skillsSection = document.querySelector('#skills');
-    if (skillsSection) {
-        skillsObserver.observe(skillsSection);
+    if (currentScroll <= 0) {
+        header.style.boxShadow = 'none';
+    } else {
+        header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
     }
-
-    // Animate counting numbers
-    const animateNumbers = function() {
-        const counters = document.querySelectorAll('.stat-number');
-        const speed = 200;
-        
-        counters.forEach(counter => {
-            const target = +counter.getAttribute('data-count');
-            const count = +counter.innerText;
-            const increment = target / speed;
-            
-            if (count < target) {
-                counter.innerText = Math.ceil(count + increment);
-                setTimeout(animateNumbers, 1);
-            } else {
-                counter.innerText = target;
-            }
-        });
-    };
     
-    // Animate when about section is in view
-    const aboutObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateNumbers();
-                aboutObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-    
-    const aboutSection = document.querySelector('#about');
-    if (aboutSection) {
-        aboutObserver.observe(aboutSection);
-    }
-
-    // Update copyright year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Form submission
-    const contactForm = document.querySelector('.contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form values
-            const name = this.querySelector('#name').value;
-            const email = this.querySelector('#email').value;
-            const message = this.querySelector('#message').value;
-            
-            // Simple validation
-            if (!name || !email || !message) {
-                alert('Please fill in all fields');
-                return;
-            }
-            
-            // Create mailto link
-            const subject = `Message from ${name}`;
-            const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMessage:%0D%0A${message}`;
-            window.location.href = `mailto:yahall6309@gmail.com?subject=${subject}&body=${body}`;
-            
-            // Reset form
-            this.reset();
-        });
-    }
+    lastScroll = currentScroll;
 });
